@@ -1,0 +1,6 @@
+{
+  "name": "ScrapeGuardian AI",
+  "description": "Autonomous Web Intelligence Platform powered by Bright Data & Multi-Provider AI Routers",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
