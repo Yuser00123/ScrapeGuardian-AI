@@ -15,6 +15,7 @@ import {
   Globe,
   Radio,
   ChevronRight,
+  History,
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -61,6 +62,13 @@ export const Sidebar: React.FC = () => {
       icon: Sparkles,
       badge: activeHealingCount > 0 ? `${activeHealingCount} Active` : undefined,
       badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30 animate-pulse',
+    },
+    {
+      id: 'history' as AppView,
+      label: 'Collection Lineage',
+      icon: History,
+      badge: 'Provenance',
+      badgeColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30 font-mono',
     },
     {
       id: 'demolab' as AppView,

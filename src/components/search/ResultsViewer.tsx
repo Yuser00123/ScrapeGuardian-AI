@@ -4,6 +4,7 @@ import { SearchResultsTable } from './SearchResultsTable';
 import { DomainIntelligenceCards } from './DomainIntelligenceCards';
 import { DatasetRawViewer } from './DatasetRawViewer';
 import { SearchHistoryTable } from './SearchHistoryTable';
+import { ScraperStudioOutput } from './ScraperStudioOutput';
 import {
   Layers,
   Table,
@@ -19,10 +20,11 @@ import {
   Sparkles,
   BarChart2,
   CheckCircle2,
+  Radio,
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-export type ResultTab = 'overview' | 'results' | 'domains' | 'raw' | 'history';
+export type ResultTab = 'studio' | 'overview' | 'results' | 'domains' | 'raw' | 'history';
 
 export const ResultsViewer: React.FC = () => {
   const {
@@ -33,7 +35,7 @@ export const ResultsViewer: React.FC = () => {
     searchJobs,
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState<ResultTab>('overview');
+  const [activeTab, setActiveTab] = useState<ResultTab>('studio');
 
   const currentKeyword = currentSearchJob?.keyword || 'AI agents';
   const topDomain = domainIntelligence[0] || {
@@ -47,6 +49,7 @@ export const ResultsViewer: React.FC = () => {
   const topRankResult = searchResults.find((r) => r.position === 1) || searchResults[0];
 
   const tabs: Array<{ id: ResultTab; label: string; icon: React.ElementType; badge?: string }> = [
+    { id: 'studio', label: 'Scraper Studio Output', icon: Radio, badge: `${searchResults.length} Records` },
     { id: 'overview', label: 'SERP Overview', icon: Layers },
     { id: 'results', label: 'Ranked Results', icon: Table, badge: `${searchResults.length}` },
     { id: 'domains', label: 'Domain Market Share', icon: PieChart, badge: `${domainIntelligence.length}` },
@@ -161,6 +164,15 @@ export const ResultsViewer: React.FC = () => {
 
       {/* Tab Contents */}
       <div className="pt-1">
+        {/* Tab 0: Scraper Studio Output */}
+        {activeTab === 'studio' && (
+          <ScraperStudioOutput
+            results={searchResults}
+            execution={datasetExecutions[0]}
+            keyword={currentKeyword}
+          />
+        )}
+
         {/* Tab 1: Overview */}
         {activeTab === 'overview' && (
           <div className="space-y-4">

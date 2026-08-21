@@ -49,7 +49,7 @@ import { trendDetectionEngine } from '../services/trendDetection.service';
 import { reliabilityEngine, ReliabilityStage } from '../services/reliability.service';
 import { researchAgentService } from '../services/researchAgent.service';
 
-export type AppView = 'landing' | 'dashboard' | 'search-intelligence' | 'collectors' | 'intelligence' | 'healing' | 'demolab' | 'settings';
+export type AppView = 'landing' | 'dashboard' | 'search-intelligence' | 'collectors' | 'intelligence' | 'healing' | 'history' | 'demolab' | 'settings';
 
 export type DemoStage = 'healthy' | 'changed' | 'failure' | 'healing' | 'validated' | 'recovered';
 

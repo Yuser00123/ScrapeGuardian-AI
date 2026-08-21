@@ -4,6 +4,7 @@ import { HealingJob } from '../../types/firestore';
 import { PipelineVisualizer } from './PipelineVisualizer';
 import { SelectorPatchCard } from './SelectorPatchCard';
 import { HealingLogViewer } from './HealingLogViewer';
+import { SelfHealingWorkflow } from './SelfHealingWorkflow';
 import { StatusBadge } from '../common/StatusBadge';
 import { formatTimeAgo } from '../../lib/utils';
 import {
@@ -156,6 +157,9 @@ export const HealingView: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Visual Self-Healing Resilience Flow */}
+      <SelfHealingWorkflow />
 
       {/* Main Content Layout: Left Job Selector & Right Pipeline Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

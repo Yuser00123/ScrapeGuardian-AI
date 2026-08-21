@@ -11,6 +11,7 @@ import { SearchIntelligenceView } from './components/search/SearchIntelligenceVi
 import { CollectorsView } from './components/collectors/CollectorsView';
 import { IntelligenceView } from './components/intelligence/IntelligenceView';
 import { HealingView } from './components/healing/HealingView';
+import { CollectionHistoryView } from './components/history/CollectionHistoryView';
 import { DemoLabView } from './components/demo/DemoLabView';
 import { SettingsView } from './components/settings/SettingsView';
 
@@ -31,6 +32,8 @@ const MainLayout: React.FC = () => {
         return <IntelligenceView />;
       case 'healing':
         return <HealingView />;
+      case 'history':
+        return <CollectionHistoryView />;
       case 'demolab':
         return <DemoLabView />;
       case 'settings':
