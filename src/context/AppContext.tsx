@@ -678,7 +678,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     keyword: string,
     country = 'US',
     language = 'en',
-    limit = 20,
+    limit = 100,
     searchType: 'organic' | 'news' | 'shopping' | 'jobs' | 'images' = 'organic'
   ) => {
     if (!keyword.trim()) {

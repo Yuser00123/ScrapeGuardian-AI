@@ -55,7 +55,7 @@ export class SearchExecutionService {
       keyword,
       country = 'US',
       language = 'en',
-      resultLimit = 20,
+      resultLimit = 100,
       searchType = 'organic',
       workspaceId = 'ws_prod_01',
       onProgress,

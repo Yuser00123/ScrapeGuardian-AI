@@ -404,7 +404,7 @@ async function startServer() {
 
   // Bright Data SERP Trigger Endpoint
   app.post('/api/brightdata/serp/trigger', async (req, res) => {
-    const { keyword, country = 'US', language = 'en', limit = 20, searchType = 'organic', datasetId } = req.body;
+    const { keyword, country = 'US', language = 'en', limit = 100, searchType = 'organic', datasetId } = req.body;
     const effectiveDatasetId = datasetId || process.env.BRIGHT_DATA_SERP_DATASET_ID || 'gd_l1viktl72bvl7bjuj0';
     const apiKey = process.env.BRIGHT_DATA_API_KEY;
 
@@ -474,7 +474,7 @@ async function startServer() {
       snapshot_id: snapshotId,
       status: 'ready',
       progress: 100,
-      records_count: 20,
+      records_count: 100,
     });
   });
 

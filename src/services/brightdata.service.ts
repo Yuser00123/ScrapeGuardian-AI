@@ -71,7 +71,7 @@ export class BrightDataService {
     keyword: string,
     country = 'US',
     language = 'en',
-    limit = 20,
+    limit = 100,
     searchType = 'organic'
   ): Promise<{ snapshotId: string; datasetId: string }> {
     const snapshotId = `s_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
@@ -127,7 +127,7 @@ export class BrightDataService {
       snapshot_id: snapshotId,
       status: 'ready',
       progress: 100,
-      records_count: 20,
+      records_count: 100,
     };
   }
 
@@ -138,7 +138,7 @@ export class BrightDataService {
     snapshotId: string,
     keyword: string,
     country = 'US',
-    limit = 20,
+    limit = 100,
     searchType = 'organic'
   ): Promise<RawBrightDataSERPItem[]> {
     try {
@@ -163,7 +163,7 @@ export class BrightDataService {
   public generateSyntheticSERPDataset(
     keyword: string,
     country: string,
-    limit: number,
+    limit = 100,
     searchType: string
   ): RawBrightDataSERPItem[] {
     const cleanKw = keyword.trim().toLowerCase();
@@ -171,7 +171,6 @@ export class BrightDataService {
     // Domain & archetype presets according to query category
     const isAICoding = cleanKw.includes('code') || cleanKw.includes('coding') || cleanKw.includes('developer') || cleanKw.includes('copilot') || cleanKw.includes('assistant');
     const isAgents = cleanKw.includes('agent') || cleanKw.includes('autonomous') || cleanKw.includes('llm') || cleanKw.includes('langchain');
-    const isDevTools = cleanKw.includes('dev') || cleanKw.includes('tool') || cleanKw.includes('observability') || cleanKw.includes('monitoring') || cleanKw.includes('infra');
     const isCompetitor = cleanKw.includes('competitor') || cleanKw.includes('pricing') || cleanKw.includes('vs') || cleanKw.includes('alternative') || cleanKw.includes('saas');
 
     interface PresetItem {
@@ -183,6 +182,19 @@ export class BrightDataService {
       reviews?: number;
       sitelinks?: Array<{ title: string; link: string; snippet?: string }>;
     }
+
+    const domainCatalog = [
+      'brightdata.com', 'github.com', 'openai.com', 'anthropic.com', 'google.com',
+      'microsoft.com', 'langchain.com', 'cursor.com', 'techcrunch.com', 'g2.com',
+      'capterra.com', 'ycombinator.com', 'producthunt.com', 'huggingface.co', 'arxiv.org',
+      'medium.com', 'dev.to', 'stackoverflow.com', 'venturebeat.com', 'theverge.com',
+      'wired.com', 'forbes.com', 'bloomberg.com', 'reuters.com', 'wsj.com',
+      'zdnet.com', 'infoworld.com', 'infoq.com', 'thenewstack.io', 'dzone.com',
+      'hackernoon.com', 'towardsdatascience.com', 'kdnuggets.com', 'subgraph.io', 'datacamp.com',
+      'coursera.org', 'cloudflare.com', 'aws.amazon.com', 'cloud.google.com', 'azure.microsoft.com',
+      'databricks.com', 'snowflake.com', 'pinecone.io', 'weaviate.io', 'qdrant.tech',
+      'mongodb.com', 'elastic.co', 'postman.com', 'datadoghq.com', 'sentry.io'
+    ];
 
     let presets: PresetItem[] = [];
 
@@ -340,14 +352,6 @@ export class BrightDataService {
       // Default DevTools / Tech Presets
       presets = [
         {
-          domain: 'github.com',
-          path: `/topics/${encodeURIComponent(cleanKw.replace(/\s+/g, '-'))}`,
-          titleTemplate: `${keyword} · GitHub Topics & Open Source Ecosystem`,
-          descTemplate: `Explore trending open source projects, tools, libraries, and benchmarks related to ${keyword}.`,
-          rating: 4.9,
-          reviews: 24000,
-        },
-        {
           domain: 'brightdata.com',
           path: `/products/datasets/serp?q=${encodeURIComponent(keyword)}`,
           titleTemplate: `Bright Data ${keyword} Intelligence & SERP Dataset`,
@@ -358,6 +362,14 @@ export class BrightDataService {
             { title: 'SERP API Docs', link: 'https://brightdata.com/docs', snippet: 'Structured JSON delivery with sub-second latency.' },
             { title: 'Global Proxies', link: 'https://brightdata.com/proxies', snippet: '72M+ residential IPs across 195 countries.' },
           ],
+        },
+        {
+          domain: 'github.com',
+          path: `/topics/${encodeURIComponent(cleanKw.replace(/\s+/g, '-'))}`,
+          titleTemplate: `${keyword} · GitHub Topics & Open Source Ecosystem`,
+          descTemplate: `Explore trending open source projects, tools, libraries, and benchmarks related to ${keyword}.`,
+          rating: 4.9,
+          reviews: 24000,
         },
         {
           domain: 'ycombinator.com',
@@ -395,15 +407,59 @@ export class BrightDataService {
     }
 
     const results: RawBrightDataSERPItem[] = [];
-    const count = Math.min(limit, 50);
+    const count = Math.min(Math.max(limit, 10), 200);
+
+    const titleTopics = [
+      'Official Documentation, Architecture & API Reference',
+      'The Definitive 2026 Industry Benchmark & Performance Review',
+      'Complete Deep Dive Guide, Best Practices & Deployment Patterns',
+      'Top 10 Alternatives, Feature Comparison & Pricing Breakdown',
+      'Production Case Studies, Latency Optimization & Scaling Strategies',
+      'Enterprise Security, Compliance (SOC2/GDPR) & Governance Matrix',
+      'Open Source Community Hub, Trending Repositories & SDK Releases',
+      'Strategic Market Share Analysis & Competitive Intelligence Report',
+      'Hands-On Tutorial: Building Resilient Pipelines & Autonomous Agents',
+      'Frequently Asked Technical Questions & Troubleshooting Protocols'
+    ];
 
     for (let i = 0; i < count; i++) {
-      const preset = presets[i % presets.length];
       const rank = i + 1;
-      const domainSuffix = i >= presets.length ? `-${Math.floor(i / presets.length) + 1}` : '';
-      const domain = `${preset.domain.replace(/\.[a-z]+$/, '')}${domainSuffix}.${preset.domain.split('.').pop()}`;
-      const url = `https://${domain}${preset.path}`;
-      const title = rank === 1 ? `[Rank #1] ${preset.titleTemplate}` : preset.titleTemplate;
+      let domain: string;
+      let title: string;
+      let path: string;
+      let desc: string;
+      let sitelinks: Array<{ title: string; link: string; snippet?: string }> | undefined;
+      let rating: number | undefined;
+      let reviews: number | undefined;
+
+      if (i < presets.length) {
+        const preset = presets[i];
+        domain = preset.domain;
+        path = preset.path;
+        title = rank === 1 ? `[Rank #1] ${preset.titleTemplate}` : preset.titleTemplate;
+        desc = preset.descTemplate;
+        sitelinks = preset.sitelinks;
+        rating = preset.rating;
+        reviews = preset.reviews;
+      } else {
+        const domainIdx = (i - presets.length) % domainCatalog.length;
+        const topicIdx = Math.floor(i / domainCatalog.length) % titleTopics.length;
+        domain = domainCatalog[domainIdx];
+        const topic = titleTopics[topicIdx];
+        path = `/${encodeURIComponent(cleanKw.replace(/\s+/g, '-'))}/page-${Math.floor(i / 10) + 1}`;
+        title = `${domain.split('.')[0].toUpperCase()} · ${keyword}: ${topic}`;
+        desc = `Detailed analysis, benchmarks, and production guidance for ${keyword}. Verified insights and metrics from ${domain}.`;
+        rating = Number((4.9 - ((rank % 20) * 0.03)).toFixed(1));
+        reviews = Math.max(150, Math.floor(18000 / (1 + (rank * 0.2))));
+        if (rank <= 3) {
+          sitelinks = [
+            { title: 'Overview & Docs', link: `https://${domain}/docs`, snippet: `Get started with ${keyword}.` },
+            { title: 'Pricing & Limits', link: `https://${domain}/pricing`, snippet: 'Compare plans and tier limits.' },
+          ];
+        }
+      }
+
+      const url = `https://${domain}${path}`;
 
       results.push({
         rank,
@@ -411,15 +467,15 @@ export class BrightDataService {
         url,
         link: url,
         domain,
-        displayed_link: `${domain} › ${preset.path.replace(/^\//, '').replace(/\//g, ' › ') || 'home'}`,
-        title: i >= presets.length ? `${title} (Result #${rank})` : title,
-        description: preset.descTemplate,
-        snippet: preset.descTemplate,
-        rating: preset.rating ? Number((preset.rating - (rank * 0.02)).toFixed(1)) : undefined,
-        reviews_cnt: preset.reviews ? Math.max(120, Math.floor(preset.reviews / (rank * 0.5))) : undefined,
+        displayed_link: `${domain} › ${path.replace(/^\//, '').replace(/\//g, ' › ') || 'overview'}`,
+        title,
+        description: desc,
+        snippet: desc,
+        rating,
+        reviews_cnt: reviews,
         is_sponsored: rank === 1 && searchType === 'shopping',
-        sitelinks: rank <= 2 ? preset.sitelinks : undefined,
-        date: new Date(Date.now() - rank * 86400000 * 2).toISOString().split('T')[0],
+        sitelinks,
+        date: new Date(Date.now() - rank * 86400000).toISOString().split('T')[0],
       });
     }
 

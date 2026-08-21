@@ -34,7 +34,7 @@ export const SearchResultsTable: React.FC<SearchResultsTableProps> = ({ results,
   const [sortBy, setSortBy] = useState<'rank' | 'domain' | 'title'>('rank');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(10);
+  const [pageSize, setPageSize] = useState<number>(25);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Extract unique domains for filter dropdown
@@ -348,9 +348,10 @@ export const SearchResultsTable: React.FC<SearchResultsTableProps> = ({ results,
               aria-label="Results Per Page"
               className="rounded border border-slate-800 bg-slate-900 px-2 py-1 text-xs text-slate-300 focus:outline-none"
             >
-              <option value={10}>10 per page</option>
-              <option value={20}>20 per page</option>
+              <option value={25}>25 per page</option>
               <option value={50}>50 per page</option>
+              <option value={100}>100 per page (All)</option>
+              <option value={200}>200 per page</option>
             </select>
 
             <div className="flex items-center gap-1">

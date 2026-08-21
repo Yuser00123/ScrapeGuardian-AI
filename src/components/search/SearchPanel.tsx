@@ -44,7 +44,7 @@ const LANGUAGES = [
   { code: 'pt', label: 'Portuguese' },
 ];
 
-const LIMITS = [10, 20, 50, 100];
+const LIMITS = [20, 50, 100, 200];
 
 const SEARCH_TYPES: Array<{ id: 'organic' | 'news' | 'shopping' | 'jobs' | 'images'; label: string }> = [
   { id: 'organic', label: 'Organic SERP' },
@@ -59,7 +59,7 @@ export const SearchPanel: React.FC = () => {
   const [keyword, setKeyword] = useState<string>('AI agents');
   const [country, setCountry] = useState<string>('US');
   const [language, setLanguage] = useState<string>('en');
-  const [limit, setLimit] = useState<number>(20);
+  const [limit, setLimit] = useState<number>(100);
   const [searchType, setSearchType] = useState<'organic' | 'news' | 'shopping' | 'jobs' | 'images'>('organic');
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
 
