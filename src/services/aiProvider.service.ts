@@ -13,6 +13,7 @@ export interface AIGenerationOptions {
   systemInstruction?: string;
   category?: string;
   preferredProvider?: AIModelId;
+  contextKeyword?: string;
 }
 
 export interface AIGenerationResult {

@@ -39,7 +39,7 @@ export const DashboardView: React.FC = () => {
   const [dashboardSearchQuery, setDashboardSearchQuery] = useState('');
 
   const totalRecords = brightDataStatus?.totalRecordsCollected || 1420850;
-  const currentKeyword = currentSearchJob?.keyword || 'AI agents';
+  const currentKeyword = currentSearchJob?.keyword || 'Electric vehicles';
 
   const handleDashboardSearch = (e: React.FormEvent) => {
     e.preventDefault();

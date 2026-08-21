@@ -14,12 +14,15 @@ import {
 import { cn } from '../../lib/utils';
 
 const PRESET_QUERIES = [
-  { label: 'AI agents', tag: 'Autonomous', country: 'US' },
-  { label: 'AI coding assistants', tag: 'DevTools', country: 'US' },
-  { label: 'Developer tools', tag: 'Ecosystem', country: 'US' },
-  { label: 'Competitor monitoring', tag: 'Market Intel', country: 'UK' },
-  { label: 'LLM frameworks', tag: 'AI/ML', country: 'US' },
-  { label: 'Web scraping datasets', tag: 'Bright Data', country: 'US' },
+  { label: 'Electric vehicles', tag: 'Automotive', country: 'US' },
+  { label: 'Cricket analytics', tag: 'Sports', country: 'IN' },
+  { label: 'Cloud hosting', tag: 'Infrastructure', country: 'US' },
+  { label: 'Restaurants in Delhi', tag: 'Hospitality', country: 'IN' },
+  { label: 'Smartphones', tag: 'Consumer Tech', country: 'US' },
+  { label: 'Cybersecurity', tag: 'Enterprise', country: 'US' },
+  { label: 'Travel agencies', tag: 'Tourism', country: 'UK' },
+  { label: 'Universities', tag: 'Education', country: 'US' },
+  { label: 'Real estate', tag: 'Property', country: 'US' },
 ];
 
 const COUNTRIES = [
@@ -56,7 +59,7 @@ const SEARCH_TYPES: Array<{ id: 'organic' | 'news' | 'shopping' | 'jobs' | 'imag
 export const SearchPanel: React.FC = () => {
   const { runSearch, isSearching, searchProgress } = useApp();
 
-  const [keyword, setKeyword] = useState<string>('AI agents');
+  const [keyword, setKeyword] = useState<string>('Electric vehicles');
   const [country, setCountry] = useState<string>('US');
   const [language, setLanguage] = useState<string>('en');
   const [limit, setLimit] = useState<number>(100);
@@ -122,7 +125,7 @@ export const SearchPanel: React.FC = () => {
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Enter search keyword (e.g. AI agents, cloud monitoring, LLM pricing)..."
+            placeholder="Enter any search query (e.g. Electric vehicles, Cricket analytics, Restaurants in Delhi, Cloud hosting)..."
             disabled={isSearching}
             className="w-full rounded-lg border border-slate-800 bg-slate-950/80 py-3 pl-10 pr-28 text-sm text-slate-100 placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 disabled:opacity-60 transition-all font-sans shadow-inner"
           />
