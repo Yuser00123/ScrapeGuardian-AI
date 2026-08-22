@@ -78,7 +78,7 @@ Executive Report (C-Suite Intelligence Brief)
 
 ### Dashboard & Real-Time Intelligence Pipeline
 
-![ScrapeGuardian AI Intelligence Platform Dashboard](Screenshot_2026-08-22-14-23-31-86_40deb401b9ffe8e1df2f1cc5ba480b12.jpg)
+![ScrapeGuardian AI Intelligence Platform Dashboard](https://files.catbox.moe/hrt6q6.jpg)
 
 *Real-time executive dashboard displaying live Bright Data SERP dataset ingress (`gd_l1viktl72bvl7bjuj0`), structured AST nodes, collection reliability metrics, and the end-to-end autonomous transformation pipeline.*
 
