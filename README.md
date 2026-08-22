@@ -1,253 +1,152 @@
-# 🛡️ ScrapeGuardian AI
+# ScrapeGuardian AI
 
-> **Autonomous Web Intelligence & Self-Healing Extraction Mesh Engine**  
-> Powered by **Bright Data Google SERP Datasets** & **Multi-Model Frontier AI** (*Gemini 2.5/3.7, Groq LLaMA 3.3 70B, Mistral AI, Cohere Command-R+, OpenRouter*).
+ScrapeGuardian AI is a web intelligence platform that turns real-time search engine data into structured market insights and executive briefings. It helps founders, marketers, and analysts monitor competitors, detect market shifts, and identify emerging industry trends without maintaining fragile custom scrapers. By combining Bright Data's reliable data collection with multi-model AI synthesis, the platform delivers clean data and actionable business summaries in seconds.
 
-[![Google AI Studio](https://img.shields.io/badge/Google_AI_Studio-Build-4285F4?logo=google&logoColor=white)](https://ai.studio/build)
-[![Bright Data](https://img.shields.io/badge/Bright_Data-SERP_Dataset_gd__l1viktl72bvl7bjuj0-00D084)](https://brightdata.com)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)](https://expressjs.com/)
+**Live Demo:** [https://scrapeguardian-ai.ai.studio/](https://scrapeguardian-ai.ai.studio/)  
+**Demo Video:** [https://youtube.com/shorts/9M3Z3JURllk?si=-Zn1rEQff-4kb7Q6](https://youtube.com/shorts/9M3Z3JURllk?si=-Zn1rEQff-4kb7Q6)
 
----
+## Problem
 
-## 📖 Overview
+- Businesses spend hours manually tracking competitors across search engines and public websites.
+- Raw HTML and unorganized search data are messy, inconsistent, and hard to interpret.
+- Traditional scraping scripts break constantly due to layout changes, bot detection, and rate limits.
+- Leadership teams need clear, high-level summaries rather than thousands of unformatted data points.
 
-**ScrapeGuardian AI** is an enterprise-grade autonomous web intelligence platform designed to eliminate web scraper fragility, solve competitor search blindspots, and synthesize actionable boardroom intelligence from real-time web extractions.
+## Solution
 
-### 🌟 Key Highlights
+ScrapeGuardian AI automates the entire web data pipeline from collection to insight delivery:
 
-- 🌐 **Bright Data Ingestion**: Real-time Google SERP harvesting across countries, languages, and device targets with Bright Data's 72M+ residential proxy mesh (`gd_l1viktl72bvl7bjuj0`).
-- ⚡ **Multi-Provider AI Waterfall**: Zero-downtime, sub-50ms failover orchestration across **Google Gemini (Tier 1 Primary)**, **Groq LLaMA 3.3 70B (Tier 2 LPPU)**, **Mistral AI**, **Cohere Command-R+**, and **OpenRouter Universal Mesh**.
-- 📊 **Executive Boardroom Reporting**: Autonomous generation of strategic C-suite briefings, competitor Share of Voice (SOV) matrices, threat signals, and one-click PDF/Markdown/JSON exports.
-- 🔧 **Self-Healing Extraction Lab**: Autonomous DOM drift detection, AST pattern synthesis, and self-repairing CSS/XPath selectors.
-- 🏆 **Interactive Judge Guided Demo**: Built-in 7-step interactive walkthrough for live hackathon evaluation.
-- 🩺 **System Diagnostic Center**: Comprehensive health telemetry measuring proxy latency, model status, and database schema sync.
+1. Takes any search query, keyword, or competitor target.
+2. Collects structured search results at scale using Bright Data's managed SERP infrastructure.
+3. Cleans and stores normalized data in Firestore for instant access and history tracking.
+4. Uses frontier AI models to analyze competitor visibility, market share of voice, and trend shifts.
+5. Produces ready-to-share executive reports with strategic takeaways in PDF, Markdown, and JSON.
 
----
+## Bright Data Integration
 
-## 🏗️ Architecture
+Bright Data is the foundational data collection engine powering ScrapeGuardian AI. Rather than relying on unreliable custom scrapers, the app uses Bright Data to gather authentic, structured search data across regions, languages, and device types.
 
 ```
-                                 ┌─────────────────────────────────┐
-                                 │       ScrapeGuardian UI         │
-                                 │  (React 19 + Tailwind CSS 4)    │
-                                 └────────────────┬────────────────┘
-                                                  │
-                                                  ▼
-                                 ┌─────────────────────────────────┐
-                                 │   Express.js API Proxy Server   │
-                                 │  (Zero-Trust Key Encapsulation) │
-                                 └──────┬───────────────────┬──────┘
-                                        │                   │
-                     ┌──────────────────┴──────┐     ┌─────┴──────────────────┐
-                     ▼                         ▼     ▼                        ▼
-         ┌─────────────────────────┐               ┌────────────────────────────────┐
-         │ Bright Data SERP Engine │               │   Multi-Provider AI Waterfall  │
-         │ - Dataset REST API      │               │ 1. Google Gemini 2.5 / 3.7     │
-         │ - 72M+ Residential Mesh │               │ 2. Groq LLaMA 3.3 70B (LPPU)   │
-         │ - Captcha Bypass        │               │ 3. Mistral AI & Cohere R+      │
-         └─────────────────────────┘               │ 4. OpenRouter Multi-Mesh       │
-                                                   └────────────────────────────────┘
+User Query
+    ↓
+Bright Data SERP Dataset
+    ↓
+Structured Search Results
+    ↓
+Firestore Storage
+    ↓
+AI Analysis
+    ↓
+Executive Intelligence Report
 ```
 
----
+### What Bright Data Contributes:
+- **Google SERP Dataset (`gd_l1viktl72bvl7bjuj0`)**: Fetches search results directly with structured fields (titles, snippets, ranks, URLs, sitelinks, and rich snippets).
+- **Proxy Network & Anti-Bot Resolution**: Routes requests through Bright Data's residential proxy network, eliminating CAPTCHAs, IP bans, and geo-blocking.
+- **Data Quality & Reliability**: Ensures consistent schema formatting so downstream AI models and analytics dashboards always receive clean, validated inputs.
+- **Fast Execution**: Returns structured snapshots quickly, enabling real-time search intelligence and on-demand report generation.
 
-## 🚀 Getting Started & Setup
+## Features
 
-### 1. Prerequisites
+- **Structured Web Data Collection**: Query Google search results across global locations and receive clean, structured JSON data.
+- **Competitor Monitoring**: Automatically map domain visibility, organic rankings, and market share of voice (SOV).
+- **Trend Analysis**: Detect rank movements, new market entrants, and keyword volatility over time.
+- **Market Intelligence**: Classify search intent, content opportunities, and competitive threats.
+- **Executive Reports**: Generate C-suite summaries with strategic recommendations and export to PDF, Markdown, or JSON.
+- **Collection Monitoring**: Track collection health, API latency, success rates, and proxy status in real time.
+- **Firestore Persistence**: Save queries, structured datasets, analysis history, and generated briefs in persistent storage.
 
-- **Node.js**: `v20.x` or higher
-- **npm**: `v10.x` or higher
+## Architecture
 
----
+```
+User Query
+    ↓
+Bright Data Dataset (Google SERP API)
+    ↓
+Structured Output (Normalized AST Nodes)
+    ↓
+Firestore (Jobs & Collections Storage)
+    ↓
+AI Analysis (Gemini 3.7 / Groq / Mistral Router)
+    ↓
+Dashboard (Real-time Visual Analytics)
+    ↓
+Executive Report (C-Suite Intelligence Brief)
+```
 
-### 2. Installation
+## Screenshots
 
-Clone the repository and install the project dependencies:
+### Dashboard & Real-Time Intelligence Pipeline
+
+![ScrapeGuardian AI Intelligence Platform Dashboard](Screenshot_2026-08-22-14-23-31-86_40deb401b9ffe8e1df2f1cc5ba480b12.jpg)
+
+*Real-time executive dashboard displaying live Bright Data SERP dataset ingress (`gd_l1viktl72bvl7bjuj0`), structured AST nodes, collection reliability metrics, and the end-to-end autonomous transformation pipeline.*
+
+### Structured Output & Intelligence Reports
+
+*(Additional views available in the [Live Demo](https://scrapeguardian-ai.ai.studio/) & [Video Walkthrough](https://youtube.com/shorts/9M3Z3JURllk?si=-Zn1rEQff-4kb7Q6))*
+
+## Demo Video
+
+Watch the demo walkthrough on YouTube:  
+**[Watch Demo Video](https://youtube.com/shorts/9M3Z3JURllk?si=-Zn1rEQff-4kb7Q6)**  
+`https://youtube.com/shorts/9M3Z3JURllk?si=-Zn1rEQff-4kb7Q6`
+
+## Tech Stack
+
+- **Data Collection**: Bright Data (Google SERP Dataset API & Proxy Network)
+- **Database & Storage**: Firestore
+- **Frontend**: React 19, TypeScript, Tailwind CSS, Lucide Icons, Recharts
+- **Backend**: Node.js, Express.js
+- **AI Models**: Google Gemini (3.7 Flash & 3.6 Flash), Groq (LLaMA 3.3 70B), Mistral AI
+
+## Quick Start
+
+### 1. Clone and Install
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-repo/scrapeguardian-ai.git
+git clone https://github.com/your-username/scrapeguardian-ai.git
 cd scrapeguardian-ai
-
-# Install dependencies
 npm install
 ```
 
----
+### 2. Configure Environment
 
-### 3. Environment Configuration
-
-Create a `.env` file at the root of the project using `.env.example` as a template:
-
-```bash
-cp .env.example .env
-```
-
-Fill in your API keys in `.env` (or configure them via Google AI Studio Settings/Secrets):
+Create a `.env` file at the root:
 
 ```env
-# Google Gemini API (Primary Frontier Model)
-GEMINI_API_KEY="your_gemini_api_key_here"
+# Bright Data
+BRIGHT_DATA_API_KEY=your_bright_data_api_key
+BRIGHT_DATA_SERP_DATASET_ID=gd_l1viktl72bvl7bjuj0
 
-# Groq API (High-Throughput LLaMA Inference)
-GROQ_API_KEY="your_groq_api_key_here"
+# AI Provider
+GEMINI_API_KEY=your_gemini_api_key
 
-# Cohere API (Enterprise Semantic & Command-R+)
-COHERE_API_KEY="your_cohere_api_key_here"
-
-# Mistral AI API (Specialized European Sovereign Models)
-MISTRAL_API_KEY="your_mistral_api_key_here"
-
-# OpenRouter API (Universal Unified Multi-Model Mesh)
-OPENROUTER_API_KEY="your_openrouter_api_key_here"
-
-# Bright Data SERP Dataset API Key & Dataset ID
-BRIGHT_DATA_API_KEY="your_bright_data_api_key_here"
-BRIGHT_DATA_SERP_DATASET_ID="gd_l1viktl72bvl7bjuj0"
-
-# Application URL
-APP_URL="http://localhost:3000"
+# Optional Providers
+GROQ_API_KEY=your_groq_api_key
+MISTRAL_API_KEY=your_mistral_api_key
 ```
 
-> 🔒 **Security Guarantee**: All secret keys remain strictly server-side inside `server.ts` and are never leaked to the client browser.
-
----
-
-### 4. Running the Application
-
-#### 🛠️ Development Mode
-Starts the full-stack app with Vite middleware on port `3000`:
+### 3. Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Open your browser and navigate to: **`http://localhost:3000`**
+Open `http://localhost:3000` in your browser.
 
-#### 📦 Production Build & Start
-Bundles the React frontend and compiles the Express backend via `esbuild`:
+## Why ScrapeGuardian AI?
 
-```bash
-# Build frontend and backend bundle
-npm run build
+- **Built on Real Data Infrastructure**: Uses Bright Data as the primary data backbone, ensuring dependable data extraction without scraper maintenance.
+- **Raw Data to Actionable Strategy**: Bridges the gap between messy web data and boardroom-ready executive summaries.
+- **Multi-Industry Application**: Works for e-commerce price monitoring, SaaS competitor tracking, SEO market research, and brand sentiment tracking.
+- **Reliability-First Architecture**: Features transparent collection monitoring, multi-model AI failover, and persistent cloud storage.
 
-# Launch the production server
-npm start
-```
+## Scrape-Verse Criteria Alignment
 
-#### 🔍 Linting & Type Checking
-```bash
-npm run lint
-```
-
----
-
-## 🎯 How to Use ScrapeGuardian AI
-
-### 1. 🔍 Search Intelligence Hub
-1. Navigate to **Search Intelligence** from the left navigation bar.
-2. Enter any search term (e.g. `autonomous AI web scraper agents`, `developer tools pricing`, `cloud database benchmarks`).
-3. Select your target **Country** (US, UK, DE, etc.), **Language**, and **Number of Results**.
-4. Click **Run Intelligence Search** to dispatch the query through Bright Data's SERP engine.
-5. Inspect the live extracted SERP nodes, title metadata, snippets, sitelinks, and domain distributions.
-
-### 2. 🧠 Multi-Model AI Analysis
-1. Select the **AI Intelligence Analysis** tab after a search run.
-2. Choose your preferred AI provider model (*Gemini 3.7 Flash, Groq 70B, Mistral Large, etc.*) or let the **Waterfall Router** select automatically.
-3. Review extracted intent classifications, market saturation scores, and competitive threat factors.
-4. Interact with the **AI Research Assistant** to ask conversational follow-up questions grounded directly in the extracted SERP records.
-
-### 3. 📑 Executive Boardroom Briefing
-1. Click **Generate Boardroom Report** on any completed query.
-2. Review the structured executive briefing covering:
-   - Executive Overview & Key Market Trends
-   - Competitor Share of Voice (SOV) Breakdown
-   - Tactical & Strategic Recommendations
-   - Risk Analysis & Emerging Moats
-3. Click **Export Report** to download in **PDF / Print**, **Markdown (.md)**, or **JSON**.
-
-### 4. 🏆 Judge Guided Demo Mode
-1. Click the **Judge Demo** button in the top navigation bar.
-2. Follow the 7-step guided interactive walkthrough:
-   - **Step 1:** Dispatch search query
-   - **Step 2:** Bright Data dataset extraction
-   - **Step 3:** Multi-provider AI reasoning
-   - **Step 4:** Competitor Share of Voice mapping
-   - **Step 5:** Executive briefing generation
-   - **Step 6:** Live fault recovery & failover demonstration
-   - **Step 7:** Full telemetry dashboard verification
-3. Use the **Auto-Play Tour** toggle to let the walkthrough run automatically.
-
-### 5. ⚡ Live Fault Recovery & Failover Demonstration
-1. Open the **Demo Lab** or trigger **Step 6** in the Judge Tour.
-2. Click **Simulate Primary Provider Failure**.
-3. Watch the system intercept an upstream primary timeout (HTTP 429) and instantly route through secondary high-speed LPPU models in **<50ms** with zero data loss.
-
-### 6. 🩺 System Diagnostics Center
-1. Click **Health Diagnostics** in the top navigation bar.
-2. Inspect live latency benchmarks for:
-   - Bright Data SERP Dataset & Residential Mesh
-   - Google Gemini Frontier Primary
-   - Groq LPPU High-Throughput
-   - Mistral AI & Cohere Command-R+
-   - OpenRouter Universal Mesh
-   - Firestore Persistence & Reliability Lab
-
----
-
-## 📁 Project Structure
-
-```
-├── .env.example              # Environment variables template
-├── metadata.json             # Applet metadata & permission manifest
-├── package.json              # Project dependencies & build scripts
-├── server.ts                 # Full-stack Express server with AI waterfall routing
-├── vite.config.ts            # Vite configuration with Tailwind CSS plugin
-├── src/
-│   ├── main.tsx              # React entry point
-│   ├── App.tsx               # Primary application view manager
-│   ├── index.css             # Tailwind CSS & global styling
-│   ├── types.ts              # Global TypeScript interfaces & schemas
-│   ├── context/
-│   │   └── AppContext.tsx    # Unified state management & live workflows
-│   ├── services/
-│   │   ├── brightdata.service.ts       # Bright Data SERP Dataset API client
-│   │   ├── aiProvider.service.ts       # Multi-model AI router & prompt engine
-│   │   ├── firestore.service.ts        # Cloud persistence & schema mapping
-│   │   ├── searchExecution.service.ts  # End-to-end extraction orchestrator
-│   │   └── reportGeneration.service.ts # Boardroom report generator & exporters
-│   └── components/
-│       ├── navigation/       # Navbar, Sidebar, Command Palette (Cmd+K)
-│       ├── search/           # Search panel, SERP viewer, intelligence views
-│       ├── intelligence/     # Multi-provider benchmark & comparative analytics
-│       ├── dashboard/        # Telemetry overview & market metrics
-│       ├── demo/             # Judge guided demo modal & interactive lab
-│       ├── common/           # Diagnostics modal, notification dropdown, toasts
-│       └── landing/          # Product introduction & architecture showcase
-```
-
----
-
-## 🔌 API Endpoints Summary
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Service health status & uptime |
-| `GET` | `/api/system/health-check` | Comprehensive component diagnostic report |
-| `GET` | `/api/ai/providers/status` | Current availability of all configured AI providers |
-| `POST` | `/api/ai/generate` | Multi-model text synthesis with waterfall failover |
-| `POST` | `/api/ai/chat` | Context-grounded research assistant endpoint |
-| `POST` | `/api/ai/simulate-failover` | Zero-downtime provider fault recovery simulation |
-| `POST` | `/api/brightdata/serp/trigger` | Trigger Bright Data Google SERP Dataset collection |
-| `GET` | `/api/brightdata/serp/status` | Check dataset snapshot processing progress |
-| `GET` | `/api/brightdata/serp/results` | Ingest structured SERP records |
-
----
-
-## 🛡️ License
-
-Built with ❤️ for the Google AI Studio & Bright Data Hackathon.
-Distributed under the **MIT License**.
+- **Potential Impact**: Saves teams 10+ hours per week by turning hours of manual competitive research into automated, C-suite ready briefs.
+- **Creativity**: Connects high-fidelity SERP extraction directly with multi-model AI reasoning to produce instant market concentration and share-of-voice analyses.
+- **Technical Excellence**: Built with TypeScript, React 19, Express, and Firestore, featuring resilient AI model failover and secure server-side API proxying.
+- **Use of Scraper Studio / Datasets**: Bright Data's SERP Dataset API powers the entire extraction workflow, replacing fragile client-side scrapers with enterprise-grade data feeds.
+- **Reliability**: Backed by Bright Data's proxy mesh to prevent blocking, combined with real-time health checks and fallback AI providers.
+- **Presentation**: Features an intuitive, accessible dashboard with interactive charts, one-click report exports, and an automated guided tour for judges.
