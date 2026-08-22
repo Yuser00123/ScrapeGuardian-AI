@@ -14,6 +14,7 @@ import { HealingView } from './components/healing/HealingView';
 import { CollectionHistoryView } from './components/history/CollectionHistoryView';
 import { DemoLabView } from './components/demo/DemoLabView';
 import { SettingsView } from './components/settings/SettingsView';
+import { DataSourceInspectorView } from './components/inspector/DataSourceInspectorView';
 
 const MainLayout: React.FC = () => {
   const { currentView } = useApp();
@@ -38,6 +39,8 @@ const MainLayout: React.FC = () => {
         return <DemoLabView />;
       case 'settings':
         return <SettingsView />;
+      case 'inspector':
+        return <DataSourceInspectorView />;
       default:
         return <DashboardView />;
     }

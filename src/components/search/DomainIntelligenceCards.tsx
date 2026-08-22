@@ -58,10 +58,15 @@ export const DomainIntelligenceCards: React.FC<DomainIntelligenceCardsProps> = (
       {/* Top Controls Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5 backdrop-blur-md">
         <div>
-          <h3 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
-            <PieChart className="h-4 w-4 text-emerald-400" />
-            Competitive Domain Ecosystem ({domains.length} Unique Domains)
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-100 flex items-center gap-2">
+              <PieChart className="h-4 w-4 text-emerald-400" />
+              Competitive Domain Ecosystem ({domains.length} Unique Domains)
+            </h3>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Derived From Bright Data
+            </span>
+          </div>
           <p className="text-xs text-slate-400 mt-0.5">
             Aggregated visibility metrics, market share of voice, and landing page coverage
           </p>

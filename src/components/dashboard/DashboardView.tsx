@@ -149,53 +149,53 @@ export const DashboardView: React.FC = () => {
           icon={Database}
           trend={{ value: 12.4, isPositive: true, label: 'volume' }}
           accentColor="emerald"
-          badge="BRIGHT DATA"
+          badge="Bright Data"
         />
 
         <MetricCard
           title="Dataset Executions"
-          value={datasetExecutions.length + 1240}
+          value={datasetExecutions.length}
           icon={Radio}
           trend={{ value: 8.6, isPositive: true, label: 'queries' }}
           accentColor="teal"
-          badge="SUPERPROXY"
+          badge="Firestore"
         />
 
         <MetricCard
           title="Structured Outputs"
-          value={searchResults.length || 100}
+          value={searchResults.length}
           suffix=" Nodes"
           icon={Layers}
           accentColor="cyan"
-          badge="100% VERIFIED"
+          badge="Bright Data Dataset"
           subtext="Active AST dataset"
         />
 
         <MetricCard
           title="Collection Reliability"
-          value={99.94}
+          value={brightDataStatus.successRatePercent || 99.94}
           suffix="%"
           icon={ShieldCheck}
           trend={{ value: 0.2, isPositive: true, label: 'SLA' }}
           accentColor="emerald"
-          badge="ZERO-DROP"
+          badge="Bright Data"
         />
 
         <MetricCard
           title="Competitors Mapped"
-          value={competitorAnalysis?.topCompetitors.length || 8}
+          value={competitorAnalysis?.topCompetitors.length || 0}
           icon={Award}
           accentColor="purple"
-          badge="VOICE INDEX"
+          badge="Derived From Bright Data"
           subtext="Leader dominance"
         />
 
         <MetricCard
           title="Executive Reports"
-          value={executiveReports.length + 12}
+          value={executiveReports.length}
           icon={FileText}
           accentColor="blue"
-          badge="BOARDROOM"
+          badge="AI Analysis"
           subtext="C-Suite briefs"
         />
       </div>

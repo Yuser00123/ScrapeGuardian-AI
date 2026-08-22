@@ -44,6 +44,7 @@ export const Navbar: React.FC = () => {
     { id: 'intelligence', label: 'Intelligence', icon: Layers },
     { id: 'healing', label: 'Healing Center', icon: Sparkles },
     { id: 'demolab', label: 'Demo Lab', icon: FlaskConical },
+    { id: 'inspector', label: 'Data Inspector', icon: ShieldCheck },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 

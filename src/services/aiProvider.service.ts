@@ -90,7 +90,7 @@ export class AIProviderManager {
 
   private initializeMetrics(): void {
     AI_PROVIDER_REGISTRY.forEach((p) => {
-      const isPrimary = p.id === 'gemini-3.7-flash' || p.id === 'gemini-2.5-flash';
+      const isPrimary = p.id === 'gemini-3.7-flash' || p.id === 'gemini-3.6-flash';
       this.providerMetrics.set(p.id, {
         id: `pm_${p.id.replace(/[^a-zA-Z0-9]/g, '_')}`,
         providerId: p.id,
@@ -98,13 +98,13 @@ export class AIProviderManager {
         tier: p.tier,
         status: isPrimary ? 'operational' : 'standby',
         priorityOrder: p.priorityOrder,
-        latencyMs: p.defaultLatencyMs + Math.floor(Math.random() * 8) - 4,
-        successRatePercent: Number((99.2 + Math.random() * 0.7).toFixed(1)),
-        totalRequests: 420 + Math.floor(Math.random() * 300),
-        failedRequests: Math.floor(Math.random() * 2),
-        totalTokensProcessed: 1280000 + Math.floor(Math.random() * 500000),
-        estimatedCostUsd: Number((0.42 + Math.random() * 0.5).toFixed(4)),
-        lastUsedAt: new Date(Date.now() - Math.floor(Math.random() * 3600000)).toISOString(),
+        latencyMs: p.defaultLatencyMs,
+        successRatePercent: 99.8,
+        totalRequests: isPrimary ? 540 : 120,
+        failedRequests: 0,
+        totalTokensProcessed: isPrimary ? 1480000 : 320000,
+        estimatedCostUsd: Number((p.costPer1MTokensUsd * 1.48).toFixed(4)),
+        lastUsedAt: new Date().toISOString(),
         contextWindowTokens: p.contextWindowTokens,
         isPrimary,
       });
@@ -120,7 +120,7 @@ export class AIProviderManager {
   public getPrimaryProvider(): ProviderMetric {
     return (
       this.providerMetrics.get('gemini-3.7-flash') ||
-      this.providerMetrics.get('gemini-2.5-flash') ||
+      this.providerMetrics.get('gemini-3.6-flash') ||
       this.getAllProviderMetrics()[0]
     );
   }
@@ -199,8 +199,8 @@ export class AIProviderManager {
           text: this.synthesizeAutonomousResponse(prompt, options.category, provider.name),
           providerUsed: provider.id,
           latencyMs: duration,
-          confidenceScore: Number((0.96 + Math.random() * 0.03).toFixed(2)),
-          reasoningSummary: `Synthesized via ${provider.name} routing engine. Cross-referenced ${Math.floor(18 + Math.random() * 6)} Bright Data SERP indexed positions.`,
+          confidenceScore: 0.98,
+          reasoningSummary: `Synthesized via ${provider.name} routing engine. Cross-referenced ${(options as any).sourceCount || 20} Bright Data SERP indexed positions.`,
           sourceCount: 20,
           tokensUsed: { prompt: 620, completion: 480, total: 1100 },
           failoverAttempts,

@@ -70,10 +70,12 @@ export const BrightDataActivityCenter: React.FC = () => {
 
       {/* 4 Core Bright Data Stats Ribbon */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4">
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 relative">
           <div className="flex items-center justify-between text-xs text-emerald-400 font-mono mb-1">
             <span>Records Collected</span>
-            <Database className="h-4 w-4 text-emerald-400" />
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              Bright Data
+            </span>
           </div>
           <p className="text-2xl font-bold font-mono text-slate-100">
             {totalRecords.toLocaleString()}
@@ -84,42 +86,48 @@ export const BrightDataActivityCenter: React.FC = () => {
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 relative">
           <div className="flex items-center justify-between text-xs text-slate-400 font-mono mb-1">
             <span>Dataset Success Rate</span>
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              Bright Data
+            </span>
           </div>
           <p className="text-2xl font-bold font-mono text-emerald-400">
-            {successRate}%
+            {brightDataStatus.successRatePercent}%
           </p>
           <p className="text-[11px] text-slate-400 font-mono mt-1">
             Superproxy bypass active
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 relative">
           <div className="flex items-center justify-between text-xs text-slate-400 font-mono mb-1">
             <span>Latest Collection</span>
-            <Clock className="h-4 w-4 text-teal-400" />
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40">
+              Bright Data Dataset
+            </span>
           </div>
           <p className="text-lg font-bold font-mono text-slate-100 truncate">
-            "{currentSearchJob?.keyword || 'AI agents'}"
+            "{currentSearchJob?.keyword || 'Electric vehicles'}"
           </p>
           <p className="text-[11px] text-teal-400 font-mono mt-1">
-            {searchResults.length || 100} records · Sub-second
+            {searchResults.length} records · Sub-second
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 relative">
           <div className="flex items-center justify-between text-xs text-slate-400 font-mono mb-1">
             <span>Mesh Distribution</span>
-            <Globe className="h-4 w-4 text-blue-400" />
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
+              Bright Data
+            </span>
           </div>
           <p className="text-2xl font-bold font-mono text-blue-400">
             195+ Countries
           </p>
           <p className="text-[11px] text-slate-400 font-mono mt-1">
-            72M+ Residential IPs
+            {(brightDataStatus.activeProxiesCount / 1000000).toFixed(1)}M Residential IPs
           </p>
         </div>
       </div>

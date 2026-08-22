@@ -52,7 +52,7 @@ export const mockWorkspace: Workspace = {
   },
   aiProviderConfig: {
     provider: 'gemini',
-    modelId: 'gemini-2.5-flash',
+    modelId: 'gemini-3.7-flash',
     temperature: 0.1,
     maxTokens: 4096,
     healingTimeoutSeconds: 45,

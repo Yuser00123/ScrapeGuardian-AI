@@ -37,6 +37,7 @@ export const DataPipelineSection: React.FC = () => {
       step: 1,
       name: 'Keyword Search',
       tech: 'Parameter Dispatcher',
+      sourceBadge: 'Bright Data',
       icon: Search,
       color: 'emerald',
       status: 'Completed',
@@ -46,19 +47,21 @@ export const DataPipelineSection: React.FC = () => {
     },
     {
       step: 2,
-      name: 'Bright Data Dataset Execution',
+      name: 'Bright Data Execution',
       tech: 'gd_l1viktl72bvl7bjuj0',
+      sourceBadge: 'Bright Data',
       icon: Radio,
       color: 'emerald',
-      status: 'Ready / Delivered',
+      status: 'Delivered',
       desc: `Triggered Google SERP dataset via Bright Data proxy mesh. Snapshot ID: ${snapshotId}.`,
       actionLabel: 'View Dataset',
       onAction: () => setCurrentView('search-intelligence'),
     },
     {
       step: 3,
-      name: 'Structured Output Generated',
+      name: 'Structured Output',
       tech: 'Normalized AST Nodes',
+      sourceBadge: 'Derived From Bright Data',
       icon: FileCode,
       color: 'cyan',
       status: `${recordsCount} Records`,
@@ -69,7 +72,8 @@ export const DataPipelineSection: React.FC = () => {
     {
       step: 4,
       name: 'Firestore Storage',
-      tech: 'datasetExecutions & structuredOutputs',
+      tech: 'datasetExecutions & searchJobs',
+      sourceBadge: 'Firestore',
       icon: Database,
       color: 'blue',
       status: 'Synchronized',
@@ -80,10 +84,11 @@ export const DataPipelineSection: React.FC = () => {
     {
       step: 5,
       name: 'AI Analysis',
-      tech: 'Gemini 2.5 Flash & Frontier Routers',
+      tech: 'Gemini 2.5 Flash Router',
+      sourceBadge: 'AI Analysis',
       icon: Sparkles,
       color: 'purple',
-      status: 'Market Vectorized',
+      status: 'Vectorized',
       desc: `Synthesized competitor share of voice, domain dominance, and volatility indicators.`,
       actionLabel: 'Explore Insights',
       onAction: () => setCurrentView('intelligence'),
@@ -92,9 +97,10 @@ export const DataPipelineSection: React.FC = () => {
       step: 6,
       name: 'Executive Report',
       tech: 'Boardroom Intelligence Brief',
+      sourceBadge: 'AI Analysis',
       icon: FileText,
       color: 'indigo',
-      status: 'Ready for C-Suite',
+      status: 'Ready',
       desc: `Strategic actionable briefs with citations, risk signals, and PDF/MD export capabilities.`,
       actionLabel: 'Open Briefing',
       onAction: () => setCurrentView('intelligence'),
@@ -164,15 +170,15 @@ export const DataPipelineSection: React.FC = () => {
               )}
 
               <div>
-                {/* Step number badge */}
+                {/* Step number and source badge */}
                 <div className="flex items-center justify-between gap-1 mb-2.5">
                   <span className={cn(
-                    'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border',
+                    'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border',
                     isSelected
                       ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
                       : 'bg-slate-800 text-slate-400 border-slate-700'
                   )}>
-                    STEP {item.step}
+                    {item.sourceBadge}
                   </span>
                   <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400">
                     <CheckCircle2 className="h-3 w-3 text-emerald-400" />

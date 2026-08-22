@@ -21,34 +21,80 @@ interface ProviderCallResult {
   tokensUsed?: { prompt: number; completion: number; total: number };
 }
 
-// 1. Google Gemini Caller (Primary: 2.5 Pro / 3.7 Flash / 2.5 Flash)
+// Helper: Timeout promise
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 8000, errorMsg = 'Operation timed out'): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(errorMsg)), timeoutMs)),
+  ]);
+}
+
+// 1. Google Gemini Caller (Primary: Gemini 3.7 Flash / 3.6 Flash)
 async function callGemini(
   prompt: string,
-  modelName = 'gemini-2.5-flash',
+  modelName = 'gemini-3.7-flash',
   systemInstruction?: string
 ): Promise<ProviderCallResult | null> {
   const client = getGeminiClient();
   if (!client) return null;
 
-  const response = await client.models.generateContent({
-    model: modelName,
-    contents: prompt,
-    config: {
-      temperature: 0.3,
-      maxOutputTokens: 2048,
-      systemInstruction:
-        systemInstruction ||
-        'You are ScrapeGuardian AI, an autonomous web intelligence platform. Synthesize data-grounded strategic market intelligence based on real SERP records.',
-    },
-  });
+  try {
+    const response = await withTimeout(
+      client.models.generateContent({
+        model: modelName,
+        contents: prompt,
+        config: {
+          temperature: 0.3,
+          maxOutputTokens: 2048,
+          systemInstruction:
+            systemInstruction ||
+            'You are ScrapeGuardian AI, an autonomous web intelligence platform. Synthesize data-grounded strategic market intelligence based on real SERP records.',
+        },
+      }),
+      8000,
+      `Gemini (${modelName}) request timed out after 8s`
+    );
 
-  const text = response.text || '';
-  if (!text) throw new Error('Empty response from Gemini');
-  return {
-    text,
-    provider: modelName,
-    tokensUsed: { prompt: 620, completion: 420, total: 1040 },
-  };
+    const text = response.text || '';
+    if (!text) throw new Error('Empty response from Gemini');
+    return {
+      text,
+      provider: modelName,
+      tokensUsed: { prompt: 620, completion: 420, total: 1040 },
+    };
+  } catch (err: any) {
+    // If specific model fails, try gemini-3.6-flash
+    if (modelName !== 'gemini-3.6-flash') {
+      try {
+        const fallbackResponse = await withTimeout(
+          client.models.generateContent({
+            model: 'gemini-3.6-flash',
+            contents: prompt,
+            config: {
+              temperature: 0.3,
+              maxOutputTokens: 2048,
+              systemInstruction:
+                systemInstruction ||
+                'You are ScrapeGuardian AI, an autonomous web intelligence platform. Synthesize data-grounded strategic market intelligence based on real SERP records.',
+            },
+          }),
+          6000,
+          'Gemini (gemini-3.6-flash) fallback timed out'
+        );
+        const fallbackText = fallbackResponse.text || '';
+        if (fallbackText) {
+          return {
+            text: fallbackText,
+            provider: 'gemini-3.6-flash',
+            tokensUsed: { prompt: 620, completion: 420, total: 1040 },
+          };
+        }
+      } catch (fbErr) {
+        // Continue to outer throw
+      }
+    }
+    throw err;
+  }
 }
 
 // 2. Groq Caller (LLaMA 3.3 70B Versatile / Groq Compound)
@@ -260,7 +306,7 @@ async function executeMultiProviderWaterfall(
     const p = preferredProvider.toLowerCase();
     try {
       if (p.includes('gemini') && process.env.GEMINI_API_KEY) {
-        const res = await callGemini(prompt, 'gemini-2.5-flash', systemInstruction);
+        const res = await callGemini(prompt, 'gemini-3.7-flash', systemInstruction);
         if (res) return { text: res.text, providerUsed: res.provider, failoverLog, tokensUsed: res.tokensUsed };
       }
       if (p.includes('groq') && process.env.GROQ_API_KEY) {
@@ -284,12 +330,12 @@ async function executeMultiProviderWaterfall(
     }
   }
 
-  // 1. Primary: Gemini (2.5 Pro / 2.5 Flash)
+  // 1. Primary: Gemini (3.7 Flash / 3.6 Flash)
   try {
-    const res = await callGemini(prompt, 'gemini-2.5-flash', systemInstruction);
+    const res = await callGemini(prompt, 'gemini-3.7-flash', systemInstruction);
     if (res) return { text: res.text, providerUsed: res.provider, failoverLog, tokensUsed: res.tokensUsed };
   } catch (err: any) {
-    failoverLog.push(`Tier 1 [Gemini 2.5 Flash] failed: ${err?.message}`);
+    failoverLog.push(`Tier 1 [Gemini 3.7 Flash] failed: ${err?.message}`);
   }
 
   // 2. Fallback 1: Groq LLaMA 3.3 70B
@@ -365,7 +411,7 @@ async function startServer() {
       },
       gemini: {
         status: process.env.GEMINI_API_KEY ? 'operational' : 'standby',
-        model: 'gemini-2.5-flash / gemini-3.7-flash',
+        model: 'gemini-3.7-flash / gemini-3.6-flash',
         tier: 'Tier 1 Frontier (Primary)',
       },
       groq: {
@@ -532,16 +578,40 @@ Requirements:
   }
 ]`;
 
-          const response = await geminiClient.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-              temperature: 0.2,
-              responseMimeType: 'application/json',
-            },
-          });
+          let response;
+          try {
+            response = await withTimeout(
+              geminiClient.models.generateContent({
+                model: 'gemini-3.7-flash',
+                contents: prompt,
+                config: {
+                  temperature: 0.2,
+                  responseMimeType: 'application/json',
+                },
+              }),
+              7000,
+              'Gemini SERP generator timed out'
+            );
+          } catch (modelErr) {
+            try {
+              response = await withTimeout(
+                geminiClient.models.generateContent({
+                  model: 'gemini-3.6-flash',
+                  contents: prompt,
+                  config: {
+                    temperature: 0.2,
+                    responseMimeType: 'application/json',
+                  },
+                }),
+                6000,
+                'Gemini 3.6 fallback timed out'
+              );
+            } catch (fallbackErr) {
+              console.warn('Gemini SERP fallback error:', fallbackErr);
+            }
+          }
 
-          const rawText = response.text || '';
+          const rawText = response?.text || '';
           if (rawText) {
             const parsed = JSON.parse(rawText);
             if (Array.isArray(parsed) && parsed.length > 0) {
@@ -567,7 +637,7 @@ Requirements:
     res.json({
       gemini: {
         configured: Boolean(process.env.GEMINI_API_KEY),
-        model: 'gemini-2.5-flash / gemini-3.7-flash',
+        model: 'gemini-3.7-flash / gemini-3.6-flash',
         tier: 'Tier 1 Frontier Primary',
       },
       groq: {

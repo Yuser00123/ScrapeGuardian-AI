@@ -62,7 +62,7 @@ export const GuidedJudgeDemoModal: React.FC<GuidedJudgeDemoModalProps> = ({ isOp
 
   const [step, setStep] = useState<number>(1);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [demoKeyword, setDemoKeyword] = useState<string>('autonomous AI web scraper agents');
+  const [demoKeyword, setDemoKeyword] = useState<string>(currentSearchJob?.keyword || 'Electric vehicles');
   const [isExecutingStep, setIsExecutingStep] = useState<boolean>(false);
   const [failoverTimeline, setFailoverTimeline] = useState<any[]>([]);
 
@@ -378,7 +378,7 @@ export const GuidedJudgeDemoModal: React.FC<GuidedJudgeDemoModalProps> = ({ isOp
 
                 <div className="flex flex-wrap items-center gap-2 pt-2">
                   <span className="text-[11px] text-slate-400 font-mono">Sample Presets:</span>
-                  {['autonomous AI web scraper agents', 'AI coding assistants', 'LLM reasoning benchmarks'].map((kw) => (
+                  {['Electric vehicles', 'Cricket analytics', 'Cloud hosting providers', 'Restaurants in Delhi', 'Autonomous AI agents'].map((kw) => (
                     <button
                       key={kw}
                       onClick={() => setDemoKeyword(kw)}

@@ -96,7 +96,7 @@ export const IntelligenceView: React.FC = () => {
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-1 font-mono">
-            Autonomous multi-provider AI reasoning grounded on real-time Bright Data SERP Datasets for: <strong className="text-slate-200">"{currentSearchJob?.keyword || 'autonomous AI web scraper agents'}"</strong>
+            Autonomous multi-provider AI reasoning grounded on real-time Bright Data SERP Datasets for: <strong className="text-slate-200">"{currentSearchJob?.keyword || 'Active Search Query'}"</strong>
           </p>
         </div>
 

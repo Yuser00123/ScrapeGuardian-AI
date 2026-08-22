@@ -78,6 +78,13 @@ export const Sidebar: React.FC = () => {
       badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
     },
     {
+      id: 'inspector' as AppView,
+      label: 'Data Inspector',
+      icon: ShieldCheck,
+      badge: 'Audit 100%',
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 font-mono',
+    },
+    {
       id: 'settings' as AppView,
       label: 'Settings',
       icon: Settings,

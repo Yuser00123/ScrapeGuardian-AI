@@ -49,7 +49,7 @@ import { trendDetectionEngine } from '../services/trendDetection.service';
 import { reliabilityEngine, ReliabilityStage } from '../services/reliability.service';
 import { researchAgentService } from '../services/researchAgent.service';
 
-export type AppView = 'landing' | 'dashboard' | 'search-intelligence' | 'collectors' | 'intelligence' | 'healing' | 'history' | 'demolab' | 'settings';
+export type AppView = 'landing' | 'dashboard' | 'search-intelligence' | 'collectors' | 'intelligence' | 'healing' | 'history' | 'demolab' | 'settings' | 'inspector';
 
 export type DemoStage = 'healthy' | 'changed' | 'failure' | 'healing' | 'validated' | 'recovered';
 
@@ -225,10 +225,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Day 3: Competitor & Trend Analysis State
   const [competitorAnalysis, setCompetitorAnalysis] = useState<CompetitorAnalysis | null>(() =>
-    competitorIntelligenceEngine.analyzeCompetitors('autonomous AI web scraper agents', mockSearchResults, mockDomainIntelligence)
+    competitorIntelligenceEngine.analyzeCompetitors(mockSearchJobs[0]?.keyword || 'Electric vehicles', mockSearchResults, mockDomainIntelligence)
   );
   const [trendReport, setTrendReport] = useState<TrendReport | null>(() =>
-    trendDetectionEngine.detectTrends('autonomous AI web scraper agents', mockSearchResults, mockDomainIntelligence)
+    trendDetectionEngine.detectTrends(mockSearchJobs[0]?.keyword || 'Electric vehicles', mockSearchResults, mockDomainIntelligence)
   );
 
   // Day 3: Autonomous Research Agent Chat
@@ -314,7 +314,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Day 3: Generate AI Insights
   const generateInsightsForQuery = async (keyword?: string) => {
-    const targetKeyword = keyword || currentSearchJob?.keyword || 'autonomous AI web scraper agents';
+    const targetKeyword = keyword || currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles';
     setIsGeneratingInsights(true);
 
     try {
@@ -346,7 +346,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Day 3: Generate Executive Report
   const generateExecutiveReportForQuery = async (keyword?: string): Promise<ExecutiveReport> => {
-    const targetKeyword = keyword || currentSearchJob?.keyword || 'autonomous AI web scraper agents';
+    const targetKeyword = keyword || currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles';
     setIsGeneratingReport(true);
 
     try {
@@ -429,7 +429,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const response = await researchAgentService.askAgent(
         question,
-        currentSearchJob?.keyword || 'autonomous AI web scraper agents',
+        currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles',
         searchResults,
         domainIntelligence,
         agentMessages
@@ -453,7 +453,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       {
         id: `msg_reset_${Date.now()}`,
         role: 'assistant',
-        content: `Chat session reset. Ready to analyze Bright Data SERP datasets for **"${currentSearchJob?.keyword || 'autonomous AI web scraper agents'}"**.`,
+        content: `Chat session reset. Ready to analyze Bright Data SERP datasets for **"${currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles'}"**.`,
         timestamp: new Date().toISOString(),
         confidenceScore: 0.99,
         providerUsed: 'gemini-3.7-flash',
@@ -462,13 +462,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const runCompetitorAnalysis = (keyword?: string) => {
-    const kw = keyword || currentSearchJob?.keyword || 'autonomous AI web scraper agents';
+    const kw = keyword || currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles';
     const analysis = competitorIntelligenceEngine.analyzeCompetitors(kw, searchResults, domainIntelligence);
     setCompetitorAnalysis(analysis);
   };
 
   const runTrendDetection = (keyword?: string) => {
-    const kw = keyword || currentSearchJob?.keyword || 'autonomous AI web scraper agents';
+    const kw = keyword || currentSearchJob?.keyword || searchJobs[0]?.keyword || 'Electric vehicles';
     const trends = trendDetectionEngine.detectTrends(kw, searchResults, domainIntelligence);
     setTrendReport(trends);
   };
@@ -523,7 +523,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setCollectors((prev) =>
         prev.map((c) => {
           if (c.id === id) {
-            const addedRecords = Math.floor(Math.random() * 40) + 15;
+            const addedRecords = searchResults.length || 100;
             return {
               ...c,
               totalRuns: c.totalRuns + 1,

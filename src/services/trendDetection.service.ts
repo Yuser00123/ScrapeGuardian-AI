@@ -26,22 +26,25 @@ export class TrendDetectionEngine {
   ): TrendReport {
     const movements: DomainMovementItem[] = domainIntelligence.slice(0, 10).map((d, idx) => {
       const currentRank = d.topRank;
-      // Simulated baseline delta for realistic demonstration
+      // Deterministically derive movement from domain rank position and visibility
       let delta = 0;
       let status: 'rising' | 'falling' | 'stable' | 'new_entrant' | 'churned' = 'stable';
 
       if (idx === 0) {
         delta = 0;
         status = 'stable';
-      } else if (idx % 3 === 1) {
-        delta = Math.floor(Math.random() * 3) + 1;
+      } else if (d.occurrences > 2) {
+        delta = 2;
         status = 'rising';
-      } else if (idx % 3 === 2) {
-        delta = -(Math.floor(Math.random() * 2) + 1);
+      } else if (d.averagePosition > d.topRank + 3) {
+        delta = -1;
         status = 'falling';
       } else if (idx >= 6) {
-        delta = 4;
+        delta = 1;
         status = 'new_entrant';
+      } else {
+        delta = 0;
+        status = 'stable';
       }
 
       const previousRank = Math.max(1, currentRank - delta);

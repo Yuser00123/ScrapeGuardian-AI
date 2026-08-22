@@ -31,8 +31,11 @@ export const CompetitorMatrixView: React.FC = () => {
       {/* Overview Stats Header */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-4">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider">
-            Market Concentration
+          <div className="flex items-center justify-between text-xs uppercase font-bold text-slate-400 tracking-wider">
+            <span>Market Concentration</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
+              Derived From Bright Data
+            </span>
           </div>
           <div className="text-xl font-bold text-slate-100 mt-1 flex items-center gap-2">
             <span>{competitorAnalysis.marketConcentration}</span>
@@ -43,8 +46,11 @@ export const CompetitorMatrixView: React.FC = () => {
         </div>
 
         <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-4">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider">
-            Total Unique Domains
+          <div className="flex items-center justify-between text-xs uppercase font-bold text-slate-400 tracking-wider">
+            <span>Total Unique Domains</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+              Derived From Bright Data
+            </span>
           </div>
           <div className="text-xl font-bold text-indigo-400 mt-1">
             {competitorAnalysis.totalDomainsAnalyzed} Domains
@@ -55,8 +61,11 @@ export const CompetitorMatrixView: React.FC = () => {
         </div>
 
         <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-4">
-          <div className="text-xs uppercase font-bold text-slate-400 tracking-wider">
-            Target Search Cluster
+          <div className="flex items-center justify-between text-xs uppercase font-bold text-slate-400 tracking-wider">
+            <span>Target Search Cluster</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+              Bright Data
+            </span>
           </div>
           <div className="text-base font-bold text-emerald-400 mt-1 truncate">
             {competitorAnalysis.keyword}

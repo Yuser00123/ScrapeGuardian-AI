@@ -13,6 +13,7 @@ import {
   Globe,
   RefreshCw,
   X,
+  ShieldCheck,
 } from 'lucide-react';
 
 export const CommandPalette: React.FC = () => {
@@ -42,6 +43,7 @@ export const CommandPalette: React.FC = () => {
     { title: 'Collectors', view: 'collectors', icon: Database, description: 'Bright Data scraping pipelines' },
     { title: 'Intelligence Center', view: 'intelligence', icon: Layers, description: 'AI-detected web diffs and insights' },
     { title: 'Healing Center', view: 'healing', icon: Sparkles, description: 'Autonomous AST & selector repair pipeline' },
+    { title: 'Data Inspector', view: 'inspector', icon: ShieldCheck, description: 'Audit 100% data provenance, Bright Data API ingress & grounding' },
     { title: 'Demo Lab', view: 'demolab', icon: FlaskConical, description: 'Interactive Hackathon control room simulator' },
     { title: 'Landing Page', view: 'landing', icon: Globe, description: 'Product overview & architecture specs' },
     { title: 'Settings', view: 'settings', icon: Settings, description: 'Bright Data, AI models & webhook configs' },

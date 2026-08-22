@@ -36,7 +36,7 @@ export const BrightDataStatusCard: React.FC = () => {
               <h3 className="text-sm font-semibold text-slate-100">Bright Data SERP Engine</h3>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-                Live Mesh
+                Bright Data
               </span>
             </div>
             <p className="text-[11px] text-slate-400 font-mono">

@@ -16,66 +16,73 @@ import {
 import { cn } from '../../lib/utils';
 
 export const CollectionReliabilitySection: React.FC = () => {
-  const { reliabilityScores, healingJobs, setCurrentView } = useApp();
+  const { brightDataStatus, datasetExecutions, healingJobs, setCurrentView } = useApp();
 
-  const activeRepairs = healingJobs.filter((j) => j.status === 'running' || j.status === 'succeeded').length;
+  const totalRecords = brightDataStatus.totalRecordsCollected;
+  const failedExecs = datasetExecutions.filter((e) => e.status === 'failed').length;
+  const completedExecs = datasetExecutions.filter((e) => e.status === 'delivered' || e.status === 'ready').length;
+  const successfulRate = datasetExecutions.length > 0 
+    ? Number(((completedExecs / datasetExecutions.length) * 100).toFixed(2))
+    : brightDataStatus.successRatePercent;
+  const failedRate = (100 - successfulRate).toFixed(2);
+  const activeRepairs = healingJobs.filter((j) => j.status === 'succeeded' || j.currentStage === 'completed').length;
 
   const RELIABILITY_METRICS = [
     {
       title: 'Successful Collections',
-      value: '99.94%',
-      subtext: '1,420,850 queries served',
+      value: `${successfulRate}%`,
+      subtext: `${totalRecords.toLocaleString()} nodes served`,
       icon: CheckCircle2,
       color: 'emerald',
-      badge: 'HEALTHY',
+      badge: 'Bright Data',
     },
     {
       title: 'Failed Collections',
-      value: '0.06%',
-      subtext: 'Bypassed with zero data drop',
+      value: `${failedRate}%`,
+      subtext: `${failedExecs} failed queries intercepted`,
       icon: AlertTriangle,
       color: 'amber',
-      badge: 'INTERCEPTED',
+      badge: 'Bright Data',
     },
     {
       title: 'Recovery Events',
-      value: '428',
-      subtext: 'Auto-switched proxy route',
+      value: `${activeRepairs}`,
+      subtext: 'Auto-switched proxy routes',
       icon: RotateCcw,
       color: 'blue',
-      badge: 'SUB-50MS',
+      badge: 'Firestore',
     },
     {
       title: 'Self-Healing Events',
-      value: `${activeRepairs + 38}`,
+      value: `${healingJobs.length}`,
       subtext: 'AST DOM mutations repaired',
       icon: Sparkles,
       color: 'purple',
-      badge: '98.4% PASS',
+      badge: 'Firestore',
     },
     {
       title: 'Dataset Availability',
-      value: '99.98%',
+      value: `${brightDataStatus.successRatePercent}%`,
       subtext: 'Bright Data SERP API SLA',
       icon: ShieldCheck,
       color: 'emerald',
-      badge: 'OPERATIONAL',
+      badge: 'Bright Data',
     },
     {
       title: 'Data Freshness',
-      value: '< 45s',
+      value: `${brightDataStatus.latencyMs}ms`,
       subtext: 'Real-time live Google SERP',
       icon: Clock,
       color: 'cyan',
-      badge: 'REAL-TIME',
+      badge: 'Bright Data',
     },
     {
       title: 'Collection Coverage',
       value: '195+ Geos',
-      subtext: '72M+ Residential IP nodes',
+      subtext: `${(brightDataStatus.activeProxiesCount / 1000000).toFixed(1)}M Residential nodes`,
       icon: Globe,
       color: 'teal',
-      badge: 'GLOBAL',
+      badge: 'Bright Data',
     },
   ];
 
