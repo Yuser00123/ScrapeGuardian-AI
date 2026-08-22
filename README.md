@@ -105,8 +105,8 @@ Watch the demo walkthrough on YouTube:
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/your-username/scrapeguardian-ai.git
-cd scrapeguardian-ai
+git clone https://github.com/Yuser00123/ScrapeGuardian-AI.git
+cd ScrapeGuardian-AI
 npm install
 ```
 
